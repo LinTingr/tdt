@@ -50,8 +50,11 @@ def api_attractions():
 			query = "select * from attraction limit %s, %s;"
 			cursor.execute(query, ((int(page) * number_of_page), number_of_page+1))
 			viewpoint_data = cursor.fetchall()
-			print(1,len(viewpoint_data))
-			for i in range(len(viewpoint_data)):
+			if len(viewpoint_data) == 13:
+				data_length = len(viewpoint_data)-1
+			else:
+				data_length = len(viewpoint_data)
+			for i in range(data_length):
 				# images = viewpoint_data[i][9]
 				# image = images.split(",")
 				data = {
@@ -69,73 +72,35 @@ def api_attractions():
 							]
 					}
 				viewpoint.append(data)
-		if keyword != None:
-			query = "select category from attraction;"
-			cursor.execute(query)
-			allcat = cursor.fetchall()
-			cat = []
-			for i in set(allcat):
-				cat.append(i[0])
-			if keyword in cat:
-				query = "select * from attraction where category = %s limit %s, %s;"
-				cursor.execute(query, (keyword, (int(page) * number_of_page), number_of_page+1))
-				viewpoint_data = cursor.fetchall()
-				print(3,len(viewpoint_data))
-				if len(viewpoint_data) == 13:
-					data_length = len(viewpoint_data)-1
-				else:
-					data_length = len(viewpoint_data)
-				for i in range(data_length):
-					# images = viewpoint_data[i][9]
-					# image = images.split(",")
-					data = {
-						"id": viewpoint_data[i][0],
-						"name": viewpoint_data[i][1],
-						"category": viewpoint_data[i][2],
-						"description": viewpoint_data[i][3],
-						"address": viewpoint_data[i][4],
-						"transport": viewpoint_data[i][5],
-						"mrt": viewpoint_data[i][6],
-						"lat": viewpoint_data[i][7],
-						"lng": viewpoint_data[i][8],
-						"images": [
-							viewpoint_data[i][9]
-							]
-					}
-					viewpoint.append(data)
+		else :
+			query = "select * from attraction where LOCATE(%s, name) OR category = %s limit %s, %s;"
+			cursor.execute(query, (keyword, keyword, (int(page) * number_of_page), number_of_page+1))
+			viewpoint_data = cursor.fetchall()
+			if len(viewpoint_data) == 13:
+				data_length = len(viewpoint_data)-1
 			else:
-				query = "select * from attraction where name LIKE %s limit %s, %s;"
-				cursor.execute(query, ('%'+keyword+'%', (int(page) * number_of_page), number_of_page+1))
-				viewpoint_data = cursor.fetchall()
-				print(2,len(viewpoint_data))
-				if len(viewpoint_data) == 13:
-					data_length = len(viewpoint_data)-1
-				else:
-					data_length = len(viewpoint_data)
-				for i in range(data_length):
-					# images = viewpoint_data[i][9]
-					# image = images.split(",")
-					data = {
-						"id": viewpoint_data[i][0],
-						"name": viewpoint_data[i][1],
-						"category": viewpoint_data[i][2],
-						"description": viewpoint_data[i][3],
-						"address": viewpoint_data[i][4],
-						"transport": viewpoint_data[i][5],
-						"mrt": viewpoint_data[i][6],
-						"lat": viewpoint_data[i][7],
-						"lng": viewpoint_data[i][8],
-						"images": [
-							viewpoint_data[i][9]
-							]
-					}
-					viewpoint.append(data)
-
+				data_length = len(viewpoint_data)
+			for i in range(data_length):
+				# images = viewpoint_data[i][9]
+				# image = images.split(",")
+				data = {
+					"id": viewpoint_data[i][0],
+					"name": viewpoint_data[i][1],
+					"category": viewpoint_data[i][2],
+					"description": viewpoint_data[i][3],
+					"address": viewpoint_data[i][4],
+					"transport": viewpoint_data[i][5],
+					"mrt": viewpoint_data[i][6],
+					"lat": viewpoint_data[i][7],
+					"lng": viewpoint_data[i][8],
+					"images": [
+						viewpoint_data[i][9]
+						]
+				}
+				viewpoint.append(data)
 		if len(viewpoint_data) <= 12:
-			print("len", len(viewpoint_data))
 			nextpage = None
 		else: 
-			print("len", len(viewpoint_data))
 			nextpage = 1
 		alldata = {
 			"nextPage": nextpage,
@@ -232,4 +197,4 @@ def api_categories():
 		cursor.close()  
 		cnx.close()
 
-app.run(host="0.0.0.0", port=3000)
+app.run( port=3000)
