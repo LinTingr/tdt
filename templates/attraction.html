@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台北旅遊網</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .title{
+            width: 1200px;
+            height:54px;
+            display: flex;
+            margin: auto;
+        }
+        .title-head{
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            color:#448899;
+            font-size:30px
+        }
+        .sign{
+            width: 70%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+        .schedule{
+            width:64px;
+            height:14px;
+            font-size: 16px;
+        }
+        .signinup{
+            width:71px;
+            height:14px;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+        .mainback{
+            width: 100%;
+            height:320px;
+            /* background-image: url(/taipei-day-trip/welcome.png);
+            background-repeat: no-repeat;
+            background-size: cover; */
+        }
+        .img{
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            object-position: 100% 0%;
+        }
+        .sloganlist{
+            width:1200px;
+            height: 169px;
+            display: flex;
+            margin: auto;
+            align-items: center;
+            position: relative;
+            top: -249px;
+        }
+        .slogan{
+            width: 1180px;
+            height: 149px;
+            margin: auto;
+        }
+        .search{
+            width:1180px;
+            height: 46px;
+            display: flex;
+        }
+        .input{
+            width: 400px;
+            height: 46px;
+            background-color: #fff;
+        }
+        .input-text{
+            width: 370px;
+            height: 16px;
+            padding: 15px;
+        }
+        .search-btn{
+            width: 60px;
+            height: 46px;
+            background-color: #448899;
+        }
+        .search-btn>img{
+            width:30px;
+            height:30px;
+            margin: 8px 15px;
+        }
+        .attractions{
+            margin: 40px auto;
+            width: 1200px;
+            height: 816px;
+        }
+        .attractions-group{
+            margin: auto;
+            width: 1170px;
+            height: 786px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .frame{
+            width: 270px;
+            height: 242px;
+            background-color: #e9d6c8;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border: 1px solid #e8e8e8;
+            border-radius: 0 0 10px 10px;
+        }
+        .pic{
+            width: 270px;
+            height: 197px;
+        }
+        .viewname{
+            width: 270px;
+            height: 40px;
+            background-color: #000;
+            opacity: 0.5;
+            position: relative;
+            top: -40px;
+        }
+        .context{
+            width: 270px;
+            height: 45px;
+            background-color: #fff;
+
+        }
+        .footer{
+            width: 100%;
+            height: 104px;
+            background-color: #757575;
+        }
+        .text{
+            width: 234px;
+            height: 20px;
+            margin: auto;
+            padding: 45px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <div class="title-head">台北一日遊</div>
+        <div class="sign">
+            <span class="schedule">排定行程</span>
+            <span class="signinup">登入/註冊</span>
+        </div>
+    </div>
+    <div class="mainback">
+        <img class ="img" src="/taipei-day-trip/welcome.png" alt="">
+        <div class="sloganlist">
+            <div class="slogan">
+                <div style="font-size: 24px; color:#fff; ">輕鬆享受台北一日悠閒</div>
+                <div style="font-size: 16px; color:#fff; margin: 15px 0px 25px;">探索每個角落，體驗城市的深度旅遊行程</div>
+                <div class="search">
+                    <div class="input">
+                        <div class="input-text">輸入景點名稱查詢</div>
+                    </div>
+                    <div class="search-btn"><img src="/taipei-day-trip/search.icon.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="attractions">
+        <div class="attractions-group">
+            <div class="frame">
+                <img class="pic" src="https://picsum.photos/500/200" alt="" height="197">
+                <div class="context"><div class="viewname"></div></div>
+            </div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+            <div class="frame"></div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="text"> COPYRIGHT © 2021 台北一日遊</div>
+    </footer>
+    
+    <script>
+        fetch('http://54.250.161.190:3000/api/attractions').then(function(response){
+            return response.json();
+        }).then(function(data){
+            console.log(data)
+        })
+    </script>
+</body>
+</html>
