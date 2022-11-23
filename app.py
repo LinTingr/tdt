@@ -15,7 +15,7 @@ cnxpool = mysql.connector.pooling.MySQLConnectionPool(pool_name="poolname",
                                                         pool_reset_session=True, 
                                                         **dbconfig)
 
-app=Flask(__name__)
+app=Flask(__name__, static_folder="static", static_url_path="/")
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config["JSON_SORT_KEYS"]=False
@@ -55,8 +55,8 @@ def api_attractions():
 			else:
 				data_length = len(viewpoint_data)
 			for i in range(data_length):
-				# images = viewpoint_data[i][9]
-				# image = images.split(",")
+				images = viewpoint_data[i][9]
+				image = images.split(",")
 				data = {
 						"id": viewpoint_data[i][0],
 						"name": viewpoint_data[i][1],
@@ -67,13 +67,11 @@ def api_attractions():
 						"mrt": viewpoint_data[i][6],
 						"lat": viewpoint_data[i][7],
 						"lng": viewpoint_data[i][8],
-						"images": [
-							viewpoint_data[i][9]
-							]
+						"images": image
 					}
 				viewpoint.append(data)
 		else :
-			query = "select * from attraction where LOCATE(%s, name) OR category = %s limit %s, %s;"
+			query = "select * from attraction where LOCATE(%s, name)>0 OR category = %s limit %s, %s;"
 			cursor.execute(query, (keyword, keyword, (int(page) * number_of_page), number_of_page+1))
 			viewpoint_data = cursor.fetchall()
 			if len(viewpoint_data) == 13:
@@ -81,8 +79,8 @@ def api_attractions():
 			else:
 				data_length = len(viewpoint_data)
 			for i in range(data_length):
-				# images = viewpoint_data[i][9]
-				# image = images.split(",")
+				images = viewpoint_data[i][9]
+				image = images.split(",")
 				data = {
 					"id": viewpoint_data[i][0],
 					"name": viewpoint_data[i][1],
@@ -93,9 +91,7 @@ def api_attractions():
 					"mrt": viewpoint_data[i][6],
 					"lat": viewpoint_data[i][7],
 					"lng": viewpoint_data[i][8],
-					"images": [
-						viewpoint_data[i][9]
-						]
+					"images": image
 				}
 				viewpoint.append(data)
 		if len(viewpoint_data) <= 12:
@@ -129,8 +125,8 @@ def api_attraction_id(id):
 		cursor.execute(query, (id,))
 		viewpoint_data = cursor.fetchone()
 		if viewpoint_data != None:
-			# images = viewpoint_data[9]
-			# image = images.split(",")
+			images = viewpoint_data[9]
+			image = images.split(",")
 			data = {
 				"data": [
 					{
@@ -143,9 +139,7 @@ def api_attraction_id(id):
 						"mrt": viewpoint_data[6],
 						"lat": viewpoint_data[7],
 						"lng": viewpoint_data[8], 
-						"images": [
-							viewpoint_data[9]
-						]
+						"images": image
 					}
 				]
 			}
