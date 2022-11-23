@@ -56,7 +56,7 @@ def api_attractions():
 				data_length = len(viewpoint_data)
 			for i in range(data_length):
 				images = viewpoint_data[i][9]
-				image = images.split(",")
+				image = images.split(", ")
 				data = {
 						"id": viewpoint_data[i][0],
 						"name": viewpoint_data[i][1],
@@ -80,7 +80,7 @@ def api_attractions():
 				data_length = len(viewpoint_data)
 			for i in range(data_length):
 				images = viewpoint_data[i][9]
-				image = images.split(",")
+				image = images.split(", ")
 				data = {
 					"id": viewpoint_data[i][0],
 					"name": viewpoint_data[i][1],
@@ -126,7 +126,7 @@ def api_attraction_id(id):
 		viewpoint_data = cursor.fetchone()
 		if viewpoint_data != None:
 			images = viewpoint_data[9]
-			image = images.split(",")
+			image = images.split(", ")
 			data = {
 				"data": [
 					{
