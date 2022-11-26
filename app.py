@@ -35,65 +35,49 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
 	return render_template("thankyou.html")
-	
+
+def push_data(viewpoint_data, viewpoint):
+	if len(viewpoint_data) == 13:
+		data_length = len(viewpoint_data)-1
+	else:
+		data_length = len(viewpoint_data)
+	for i in range(data_length):
+		images = viewpoint_data[i][9]
+		image = images.split(", ")
+		data = {
+				"id": viewpoint_data[i][0],
+				"name": viewpoint_data[i][1],
+				"category": viewpoint_data[i][2],
+				"description": viewpoint_data[i][3],
+				"address": viewpoint_data[i][4],
+				"transport": viewpoint_data[i][5],
+				"mrt": viewpoint_data[i][6],
+				"lat": viewpoint_data[i][7],
+				"lng": viewpoint_data[i][8],
+				"images": image
+			}
+		viewpoint.append(data)
+
 @app.route("/api/attractions")
 def api_attractions():
 	try:
+		cnx = cnxpool.get_connection()
+		cursor = cnx.cursor()
 		page = request.args.get("page", 0)
 		number_of_page = 12
 		keyword = request.args.get("keyword", None)
 		viewpoint = []
-		cnx = cnxpool.get_connection()
-		cursor = cnx.cursor()
 
 		if keyword == None:
 			query = "select * from attraction limit %s, %s;"
 			cursor.execute(query, ((int(page) * number_of_page), number_of_page+1))
 			viewpoint_data = cursor.fetchall()
-			if len(viewpoint_data) == 13:
-				data_length = len(viewpoint_data)-1
-			else:
-				data_length = len(viewpoint_data)
-			for i in range(data_length):
-				images = viewpoint_data[i][9]
-				image = images.split(", ")
-				data = {
-						"id": viewpoint_data[i][0],
-						"name": viewpoint_data[i][1],
-						"category": viewpoint_data[i][2],
-						"description": viewpoint_data[i][3],
-						"address": viewpoint_data[i][4],
-						"transport": viewpoint_data[i][5],
-						"mrt": viewpoint_data[i][6],
-						"lat": viewpoint_data[i][7],
-						"lng": viewpoint_data[i][8],
-						"images": image
-					}
-				viewpoint.append(data)
+			push_data(viewpoint_data, viewpoint)
 		else :
 			query = "select * from attraction where LOCATE(%s, name)>0 OR category = %s limit %s, %s;"
 			cursor.execute(query, (keyword, keyword, (int(page) * number_of_page), number_of_page+1))
 			viewpoint_data = cursor.fetchall()
-			if len(viewpoint_data) == 13:
-				data_length = len(viewpoint_data)-1
-			else:
-				data_length = len(viewpoint_data)
-			for i in range(data_length):
-				images = viewpoint_data[i][9]
-				image = images.split(", ")
-				data = {
-					"id": viewpoint_data[i][0],
-					"name": viewpoint_data[i][1],
-					"category": viewpoint_data[i][2],
-					"description": viewpoint_data[i][3],
-					"address": viewpoint_data[i][4],
-					"transport": viewpoint_data[i][5],
-					"mrt": viewpoint_data[i][6],
-					"lat": viewpoint_data[i][7],
-					"lng": viewpoint_data[i][8],
-					"images": image
-				}
-				viewpoint.append(data)
+			push_data(viewpoint_data, viewpoint)
 		if len(viewpoint_data) <= 12:
 			nextpage = None
 		else: 
@@ -155,9 +139,9 @@ def api_attraction_id(id):
 			return res
 	except:
 		data={
-				"error": True,
-				"message": "server error"
-			}
+			"error": True,
+			"message": "server error"
+		}
 		res = make_response(data, 500)
 		return res
 	finally:
@@ -188,7 +172,8 @@ def api_categories():
 		res = make_response(jsonify(data), 500)
 		return res
 	finally:
-		cursor.close()  
+		cursor.close()
 		cnx.close()
+		
 
 app.run(host="0.0.0.0", port=3000)
