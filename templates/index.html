@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <meta charset="utf-8"/>
+    <title>台北一日遊</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div class="title">
+        <div class="title-all">
+            <div class="title-head">台北一日遊</div>
+            <div class="sign">
+                <div class="signlist">
+                    <span class="schedule">排定行程</span>
+                    <span class="signinup">登入/註冊</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainback">
+        <img class ="img" src="pic/welcome.png" alt="">
+        <div class="sloganlist">
+            <div class="slogan">
+                <div style="font-size: 24px; color:#fff; text-shadow: 1px 2px #000;">輕鬆享受台北一日悠閒</div>
+                <div style="font-size: 16px; color:#fff; margin: 15px 0px 25px; text-shadow: 1px 1px #000;">探索每個角落，體驗城市的深度旅遊行程</div>
+                <div class="search">
+                    <div class="input">
+                        <div class="input_text" contenteditable="true" id="input_text" onkeydown="xx()" placeholder="輸入景點名稱查詢" onclick="show ()"></div>
+                        <!-- <input class="input_text" id="input_text" placeholder="輸入景點名稱查詢" value=""> -->
+                        <div class="search_bar" id="search_bar"  >
+                            <ul class="categorylist none" id="categorylist">
+                                <!-- <ol class="item"></ol>
+                                <ol class="item"></ol>
+                                <ol class="item"></ol>
+                                <ol class="item"></ol>
+                                <ol class="item"></ol>
+                                <ol class="item"></ol>
+                                <ol class="item"></ol>
+                                <ol class="item"></ol>
+                                <ol class="item"></ol> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search_btn" onclick="getinput()"><img src = "pic/search.icon.png" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="attractions">
+        <div class="attractions_group">
+            <!-- <div class="frame">
+                <img class="pic" src="https://picsum.photos/500/200" alt="" >
+                <div class="name"><div class="nametext">平安鐘</div></div>
+                <div class="context">
+                    <div class="mrt">忠孝復興</div><div class="cat">公共藝術</div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <footer class="footer">
+            <div class="text"> COPYRIGHT © 2021 台北一日遊</div>
+    </footer>
+    <script>
+        // console.log(window.origin)
+//////////////////////////////////////////////////
+        function xx(){
+            if (window.event && window.event.keyCode == 13) {
+            window.event.returnValue = false;
+            }
+        }
+//////////////////////////////////////////////////////////////////////////////////////////
+        let isloading = false
+        let attractions_group = document.querySelector(".attractions_group");
+        let nextpage = 0;
+        let keywordget = " "
+///////////////////////////////////////////////////////////////////////////////////////////
+        function createframe(data, i){
+            return ('<div class="frame">'+
+                    '<img class="pic" src='+ data.data[i].images[0] +' alt="" >'+
+                    '<div class="name"><div class="nametext">'+ data.data[i].name +'</div></div>'+
+                    '<div class="context">'+
+                    '<div class="mrt">'+ data.data[i].mrt +'</div>'+'<div class="cat">'+ data.data[i].category +'</div>'+
+                    '</div>'+'</div>');
+        }
+///////////////////////////////////////////////////////////////////////////////////////////
+        fetch(`/api/attractions?page=${nextpage}&keyword=`).then(function(response){
+                    return response.json();
+                }).then(function(data){
+                    // console.log(data.data);
+                    // console.log(data.data.length);
+                    next = data.nextPage
+                    for(let i = 0; i < data.data.length; i++){
+                        let frame = createframe(data, i)
+                        attractions_group.innerHTML += frame;
+                    }
+                    if (next == 1){
+                        nextpage = nextpage + 1 ;
+                    }else{
+                        nextpage = null;
+                    }
+                })
+ /////////////////////////////////////////////////////////////////////////////////////////////////
+        let category_list = document.querySelector(".categorylist")
+        setTimeout(function(){
+            fetch("/api/categories").then(function(response){
+                return response.json();
+            }).then(function(data){
+                let categories_data = data
+                // console.log(categories_data);
+                for(let i = 0; i < data.data.length; i++){
+                    let list = ('<ol class = "items">'+'<div id="item">'+data.data[i]+'</div>'+'</ol>')
+                    category_list.innerHTML += list
+                }
+                let cat = document.getElementsByTagName('ol');
+                // console.log(cat)
+                for (let i = 0; i < cat.length; i++){
+                    cat[i].onclick = function(){
+                        // console.log(this.innerText)
+                        document.querySelector(".input_text").textContent = this.innerText
+                        category_list.className = "categorylist none"
+                    }
+                }
+            })
+        },100)
+
+        function show (){
+            category_list.className = "categorylist"
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////       
+        function e(obj){return document.getElementById(obj)}
+        e('input_text').onclick=function(event){
+            e('categorylist').className='categorylist';
+            stopBubble(event); 
+            document.onclick=function(){
+            e('categorylist').className='categorylist none';
+                document.onclick=null;
+            }
+        }
+
+        e('categorylist').onclick=function(event){
+            //只阻止了向上冒泡，而沒有阻止向下捕獲，所以點擊con的內部對象時，仍然可以執行這個函數
+            stopBubble(event); 
+        }
+        //阻止冒泡函數
+        function stopBubble(e){  
+            if(e && e.stopPropagation){
+            e.stopPropagation();  //w3c
+            }else{
+            window.event.cancelBubble=true; //IE
+            }
+        }
+////////////////////////////////////////////////////////////////////////////////////////////////////////      
+        document.querySelector('.categorylist').className = "categorylist none";
+        function getinput(){
+            nextpage = 0;
+            keywordget = document.querySelector(".input_text").innerText
+            console.log(keywordget)
+            console.log(nextpage)
+            fetch(`/api/attractions?page=${nextpage}&keyword=${keywordget}`).then(function(response){
+                return response.json();
+            }).then(function(data){
+                console.log(data)
+                attractions_group.innerHTML = ""
+                next = data.nextPage
+                for(let i = 0; i < data.data.length; i++){
+                    frame = createframe(data, i);
+                    attractions_group.innerHTML += frame;
+                }
+                if (next == 1){
+                    nextpage = nextpage + 1 ;
+                }else{
+                    nextpage = null;
+                }
+            })
+        }
+//////////////////////////////////////////////////////////////////////////////////////////
+        // const root = document.querySelector('.attractions_group');
+        // const cards = document.querySelectorAll('.frame');
+        // let observer = new IntersectionObserver((entries) =>{
+        //     entries.forEach((entry) => {
+        //         entry.target.classList.toggle("show", entry.isIntersecting);
+        //         if(entry.isIntersecting){
+        //             observer.unobserve(entry.target);
+        //         }
+        //     })
+        // })
+        // const last = new IntersectionObserver((entries)=>{
+        //     let lastcard = entries[0];
+        //     if(!lastcard.isIntersecting) return;
+        //     load();
+        //     last.unobserve(lastcard.target);
+        //     last.observe(document.querySelector('.frame:last-child'));
+        // })
+
+        // cards.forEach((frame)=>{
+        //     observer.observe(frame);
+        // })
+
+        // last.observe(document.querySelectorAll('.frame:last-child'));
+
+        // const load = ()=>{
+            
+        //     observer.observe(frame);
+        //     root.append(frame)
+        // }
+        /////////////////
+        setTimeout(function(){
+            const footer = document.querySelector('.footer');
+            const threshold = 0.5
+            const options = {
+                root: null,
+                threshold: threshold,
+            };
+            const observer = new IntersectionObserver(callback, options);
+            console.log(new IntersectionObserver(callback, options))
+            function callback(entry){
+                console.log(entry)
+                if (entry[0].isIntersecting){
+                    if (isloading == false){
+                        loading = true
+                        if (nextpage != null){
+                            // keywordget = document.querySelector(".input_text").innerText
+                            fetch(`/api/attractions?page=${nextpage}&keyword=${keywordget}`).then(function(response){
+                                return response.json();
+                            }).then(function(data){
+                                console.log(data)
+                                next = data.nextPage
+                                for(let i = 0; i < data.data.length; i++){
+                                    attractions_group.innerHTML += createframe(data, i) ;
+                                }
+                                if (next == 1){
+                                    nextpage = nextpage + 1 ;
+                                }else{
+                                    nextpage = null;
+                                }
+                            })
+                        }
+                    }
+                    isloading = false
+                }
+            }
+            observer.observe(footer);  
+        },1000)
+        
+    
+/////////////////////////////////////////////////////////////////////////////////////////
+        // window.addEventListener("scroll", function(){
+        //     console.log("document.body.offsetHeight", document.body.offsetHeight);
+        //     console.log("window.innerHeight", window.innerHeight);
+        //     console.log("window.pageYOffset", parseInt(window.pageYOffset));
+        //     // let elem = document.querySelector(".attractions-group")
+        //     // let rect = elem.getBoundingClientRect()
+        //     // let yyy = window.pageYOffset+rect.top
+        //     // console.log("rect", rect.top)
+        //     // console.log("yyy",yyy)
+        //     if (isloading == false){
+        //         loading = true
+        //         if (window.innerHeight + parseInt(window.pageYOffset)-165 == document.body.offsetHeight){
+        //             if (nextpage != null){
+        //                 // keywordget = document.querySelector(".input_text").innerText
+        //                 fetch(`/api/attractions?page=${nextpage}&keyword=${keywordget}`).then(function(response){
+        //                     return response.json();
+        //                 }).then(function(data){
+        //                     console.log(data)
+        //                     next = data.nextPage
+        //                     for(let i = 0; i < data.data.length; i++){
+        //                         frame = ('<div class="frame">'+
+        //                             '<img class="pic" src='+ data.data[i].images[0] +' alt="" >'+
+        //                             '<div class="name"><div class="nametext">'+ data.data[i].name +'</div></div>'+
+        //                             '<div class="context">'+
+        //                             '<div class="mrt">'+ data.data[i].mrt +'</div>'+'<div class="cat">'+ data.data[i].category +'</div>'+
+        //                             '</div>'+'</div>');
+        //                         attractions_group.innerHTML += frame ;
+        //                     }
+        //                     if (next == 1){
+        //                         nextpage = nextpage + 1 ;
+        //                     }else{
+        //                         nextpage = null;
+        //                     }
+        //                 })
+        //             }
+        //         }
+        //         isloading = false
+        //     }
+            
+        // })
+    
+        // console.log(isloading)
+        // let isloading = true
+        // if (isloading){
+        //     offset += 20
+        //     nextpage()
+        //     isloading = true
+        //     return nextpage()
+        // }
+        
+            
+                
+    </script>
+</html>
