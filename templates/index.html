@@ -42,7 +42,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="search_btn" onclick="getinput()"><img src = "pic/search.icon.png" ></div>
+                    <div class="search_btn" onclick="getinput()"><img src = "pic/icon_search.png" ></div>
                 </div>
             </div>
         </div>
@@ -128,6 +128,7 @@
             category_list.className = "categorylist"
         }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////       
+        
         function e(obj){return document.getElementById(obj)}
         e('input_text').onclick=function(event){
             e('categorylist').className='categorylist';
@@ -175,36 +176,6 @@
             })
         }
 //////////////////////////////////////////////////////////////////////////////////////////
-        // const root = document.querySelector('.attractions_group');
-        // const cards = document.querySelectorAll('.frame');
-        // let observer = new IntersectionObserver((entries) =>{
-        //     entries.forEach((entry) => {
-        //         entry.target.classList.toggle("show", entry.isIntersecting);
-        //         if(entry.isIntersecting){
-        //             observer.unobserve(entry.target);
-        //         }
-        //     })
-        // })
-        // const last = new IntersectionObserver((entries)=>{
-        //     let lastcard = entries[0];
-        //     if(!lastcard.isIntersecting) return;
-        //     load();
-        //     last.unobserve(lastcard.target);
-        //     last.observe(document.querySelector('.frame:last-child'));
-        // })
-
-        // cards.forEach((frame)=>{
-        //     observer.observe(frame);
-        // })
-
-        // last.observe(document.querySelectorAll('.frame:last-child'));
-
-        // const load = ()=>{
-            
-        //     observer.observe(frame);
-        //     root.append(frame)
-        // }
-        /////////////////
         setTimeout(function(){
             const footer = document.querySelector('.footer');
             const threshold = 0.5
