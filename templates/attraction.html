@@ -4,202 +4,163 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台北旅遊網</title>
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-        }
-        .title{
-            width: 1200px;
-            height:54px;
-            display: flex;
-            margin: auto;
-        }
-        .title-head{
-            width: 30%;
-            display: flex;
-            align-items: center;
-            justify-content: start;
-            color:#448899;
-            font-size:30px
-        }
-        .sign{
-            width: 70%;
-            display: flex;
-            justify-content: end;
-            align-items: center;
-        }
-        .schedule{
-            width:64px;
-            height:14px;
-            font-size: 16px;
-        }
-        .signinup{
-            width:71px;
-            height:14px;
-            font-size: 16px;
-            margin-left: 20px;
-        }
-        .mainback{
-            width: 100%;
-            height:320px;
-            /* background-image: url(/taipei-day-trip/welcome.png);
-            background-repeat: no-repeat;
-            background-size: cover; */
-        }
-        .img{
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            object-position: 100% 0%;
-        }
-        .sloganlist{
-            width:1200px;
-            height: 169px;
-            display: flex;
-            margin: auto;
-            align-items: center;
-            position: relative;
-            top: -249px;
-        }
-        .slogan{
-            width: 1180px;
-            height: 149px;
-            margin: auto;
-        }
-        .search{
-            width:1180px;
-            height: 46px;
-            display: flex;
-        }
-        .input{
-            width: 400px;
-            height: 46px;
-            background-color: #fff;
-        }
-        .input-text{
-            width: 370px;
-            height: 16px;
-            padding: 15px;
-        }
-        .search-btn{
-            width: 60px;
-            height: 46px;
-            background-color: #448899;
-        }
-        .search-btn>img{
-            width:30px;
-            height:30px;
-            margin: 8px 15px;
-        }
-        .attractions{
-            margin: 40px auto;
-            width: 1200px;
-            height: 816px;
-        }
-        .attractions-group{
-            margin: auto;
-            width: 1170px;
-            height: 786px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .frame{
-            width: 270px;
-            height: 242px;
-            background-color: #e9d6c8;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            border: 1px solid #e8e8e8;
-            border-radius: 0 0 10px 10px;
-        }
-        .pic{
-            width: 270px;
-            height: 197px;
-        }
-        .viewname{
-            width: 270px;
-            height: 40px;
-            background-color: #000;
-            opacity: 0.5;
-            position: relative;
-            top: -40px;
-        }
-        .context{
-            width: 270px;
-            height: 45px;
-            background-color: #fff;
-
-        }
-        .footer{
-            width: 100%;
-            height: 104px;
-            background-color: #757575;
-        }
-        .text{
-            width: 234px;
-            height: 20px;
-            margin: auto;
-            padding: 45px;
-            color: #fff;
-        }
-    </style>
+    <title>台北一日遊</title>
+    <link rel="stylesheet" type="text/css" href="/attr.css">
 </head>
 <body>
     <div class="title">
-        <div class="title-head">台北一日遊</div>
-        <div class="sign">
-            <span class="schedule">排定行程</span>
-            <span class="signinup">登入/註冊</span>
-        </div>
-    </div>
-    <div class="mainback">
-        <img class ="img" src="/pic/welcome.png" alt="">
-        <div class="sloganlist">
-            <div class="slogan">
-                <div style="font-size: 24px; color:#fff; ">輕鬆享受台北一日悠閒</div>
-                <div style="font-size: 16px; color:#fff; margin: 15px 0px 25px;">探索每個角落，體驗城市的深度旅遊行程</div>
-                <div class="search">
-                    <div class="input">
-                        <div class="input-text">輸入景點名稱查詢</div>
-                    </div>
-                    <div class="search-btn"><img src="/pic/search.icon.png" alt=""></div>
+        <div class="title-all">
+            <div class="title-head"><a href="/">台北一日遊</a></div>
+            <div class="sign">
+                <div class="signlist">
+                    <span class="schedule">排定行程</span>
+                    <span class="signinup">登入/註冊</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="attractions">
-        <div class="attractions-group">
-            <div class="frame">
-                <img class="pic" src="https://picsum.photos/500/200" alt="" height="197">
-                <div class="context"><div class="viewname"></div></div>
+    <div class="main">
+        <div class="img">
+            <div class="page">
+                <div class="left" onclick="slide(-1)"><img src="/pic/btn_leftArrow.png" alt="" ></div>
+                <div class="bottom"></div>
+                <div class="right" onclick="slide(1)"><img src="/pic/btn_rightArrow.png" alt=""></div>
             </div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
-            <div class="frame"></div>
         </div>
+            <!-- <img class="pic" src="" alt=""> -->
+        
+        <div class="set">
+            <div class="name"></div>
+            <div class="mrt_cat"></div>
+            <div class="book_frame">
+                <div class="book_frame_text1">訂購導覽行程</div>
+                <div class="book_frame_text2">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+                <div class="date">
+                    <div class="date_time_price1">選擇日期 :</div>
+                    <div>
+                        <input type="date" id="start" name="trip-start" value="" placeholder="yyy">
+                    </div>
+                </div>
+                <div class="time">
+                    <div class="date_time_price2">選擇時間 :</div>
+                    <div class="select">
+                        <div class="mor">
+                            <div class="mor_container">
+                                <div class="mor_btn_div" onclick="mor_btn()">
+                                    <div class="mor_btn_show"></div>
+                                </div>
+                            </div>
+                            <div class="mor_aft">上半天</div>
+                        </div>
+                        <div class="aft">
+                            <div class="aft_container">
+                                <div class="aft_btn_div" onclick="aft_btn()" >
+                                    <div class="aft_btn_show" style="display:none;"></div>
+                                </div>
+                            </div>
+                            <div class="mor_aft">下半天</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="price">
+                    <div class="date_time_price3">導覽費用 :</div><div class="price_money"> 新台幣 2000元</div>
+                </div>
+                <div class="btn"><div>開始預約行程</div></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="main_content">
+        <div class="description">介紹</div>
+        <div class="address">景點地址 :</div>
+        <div class="address_con"></div>
+        <div class="transport">交通方式 :</div>
+        <div class="transport_con"></div>
     </div>
     <footer class="footer">
         <div class="text"> COPYRIGHT © 2021 台北一日遊</div>
     </footer>
-    
     <script>
-        fetch('http://54.250.161.190:3000/api/attractions').then(function(response){
-            return response.json();
+        // console.log(window.location.pathname)
+        // console.log(window.location.host)
+        let url = '/api'+window.location.pathname
+        // console.log(url)
+        let image 
+        let count = 0
+        fetch(url).then(function(response){
+            return response.json()
         }).then(function(data){
-            console.log(data)
+            // console.log(data.data[0])
+            // console.log(data.data[0].images)
+            let data_ = data.data[0]
+            image = data.data[0].images
+            for (let i = 0; i<data.data[0].images.length;i++){
+                console.log(data.data[0].images)
+                document.querySelector(".img").innerHTML += '<img class="pic" src='+data_.images[i]+'>'
+                document.querySelector(".bottom").innerHTML +="<div class='circle'><div class='incircle' onclick='clickslide("+ i +")'></div></div>"
+                let pic = document.querySelectorAll(".pic")
+                pic[i].style.display="none"
+            }
+            let pic = document.querySelectorAll(".pic")
+            pic[count].style.display="inline"
+            let aa = document.querySelectorAll(".incircle")
+            aa[count].className += " active"
+            // document.querySelector(".img").innerHTML += '<img class="pic" src='+image+' alt="">'
+            document.querySelector(".name").innerHTML = data_.name
+            document.querySelector(".mrt_cat").innerHTML = data_.category+" at "+data_.mrt
+            document.querySelector(".description").innerHTML = data_.description
+            document.querySelector(".address_con").innerHTML = data_.address
+            document.querySelector(".transport_con").innerHTML = data_.transport
+            
         })
+        let start =1
+        function slide(n) {
+            console.log("1",start)
+            show(start += n);
+            console.log("2",start)
+        }
+
+        function clickslide(n) {
+            console.log(n)
+            show(start = n+1);
+        }
+
+        function show(n){
+            let i;
+            let slides = document.querySelectorAll(".pic")
+            let incircle = document.querySelectorAll(".incircle")
+            console.logincircle
+            if (n == slides.length+1){
+                start = 1
+            }
+            if (n < 1) {start = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            for (i = 0; i < incircle.length; i++) {
+                incircle[i].className = incircle[i].className.replace(" active", "");
+            }
+            slides[start-1].style.display = "block";  
+            incircle[start-1].className += " active";
+        }
+        
+
+        function mor_btn(){
+            let mor_btn = document.querySelector(".mor_btn_show")
+            let aft_btn = document.querySelector(".aft_btn_show")
+            let money = document.querySelector(".price_money")
+            aft_btn.style.display = "none"
+            mor_btn.style.display = "block"
+            money.innerText = '新台幣 2000元'
+        }
+        function aft_btn(){
+            let mor_btn = document.querySelector(".mor_btn_show")
+            let aft_btn = document.querySelector(".aft_btn_show")
+            let money = document.querySelector(".price_money")
+            mor_btn.style.display = "none"
+            aft_btn.style.display = "block"
+            money.innerText = '新台幣 2500元'
+        }
     </script>
 </body>
 </html>
