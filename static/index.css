@@ -30,6 +30,7 @@ a{
     display: flex;
     color:#448899;
     font-size:30px;
+    font-weight: 700;
     background-color: #fff;
 }
 .sign{
@@ -59,6 +60,95 @@ a{
     height:14px;
     font-size: 16px;
     margin-left: 20px;
+}
+.signin_frame{
+    width: 340px;
+    height: 275px;
+    /* top: 80px; */
+    margin: 80px 550px;
+    position: absolute;
+    box-shadow: 0 4px 60px #aaaaaa;
+    background-color: #fff;
+    border-radius: 6px;
+    z-index: 5;
+}
+.signin_hr{
+    border: 0;
+    margin: 0;
+    width: 340px;
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius: 6px 6px 0px 0px;
+}
+.signin_main{
+    width: 310px;
+    height: 235px;
+    margin: auto;
+}
+.signin_text{
+    width: 310px;
+    height: 27px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin: 15px auto 0;
+    color: #666666;
+}
+.account{
+    width: 308px;
+    height: 45px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 15px auto 0;
+    
+}
+::placeholder{
+    width: 280px;
+    font-weight: 500;
+    font-size: 16px;
+    
+}
+.password{
+    width: 308px;
+    height: 45px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 15px auto 0;
+}
+.signin_btn{
+    width: 310px;
+    height: 47px;
+    background-color: #448899;
+    margin: 15px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.signin_btn_text{
+    width: 270px;
+    height: 27px;
+    font-weight: 400;
+    font-size: 19px;
+    color: #fff;
+    text-align: center;
+}
+.signin_btn:hover{
+    background-color: #5599aa;
+}
+.signin_btn:active {
+    transform: translateY(1px) scale(.98);
+}
+.nosignin{
+    width: 310px;
+    height: 22px;
+    text-align: center;
+    margin: 10px auto 0;
+    color: #666666;
 }
 .mainback{
     width: 100%;
