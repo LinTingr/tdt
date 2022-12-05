@@ -25,6 +25,7 @@ body{
     display: flex;
     color:#448899;
     font-size:30px;
+    font-weight: 700;
     background-color: #fff;
 }
 .sign{
