@@ -1,5 +1,5 @@
 from flask import *
-from .taipeidb import cnxpool, category_query
+from model.taipeidb import cnxpool, category_query
 
 category = Blueprint('category', __name__, static_folder="static", static_url_path="/")
 
