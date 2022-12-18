@@ -2,7 +2,7 @@ fetch("/api/user/auth").then(function(response){
     return response.json()
 }).then(function(data){
     if(data.data == null){
-        window.location.href = "http://127.0.0.1:3000/"
+        window.location.href = "/"
     }else{
         console.log(data.data.name)
         document.querySelector(".no_booking").style.display = "none"
