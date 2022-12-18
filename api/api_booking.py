@@ -1,5 +1,5 @@
 from flask import *
-from api.taipeidb import cnxpool
+from model.taipeidb import cnxpool
 import jwt
 
 booking = Blueprint("booking", __name__, static_folder="static", static_url_path="/")
