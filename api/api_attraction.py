@@ -1,6 +1,6 @@
 from flask import *
 from model.taipeidb import cnxpool
-
+ 
 attraction = Blueprint("attraction", __name__, static_folder="static", static_url_path="/")
 
 def push_data(viewpoint_data, viewpoint):
