@@ -1,5 +1,5 @@
 from flask import *
-from api.taipeidb import cnxpool
+from model.taipeidb import cnxpool
 
 attraction = Blueprint("attraction", __name__, static_folder="static", static_url_path="/")
 
