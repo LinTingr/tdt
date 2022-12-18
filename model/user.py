@@ -1,4 +1,4 @@
-from api.taipeidb import cnxpool
+from model.taipeidb import cnxpool
 from flask_bcrypt import Bcrypt
 from flask import *
 
