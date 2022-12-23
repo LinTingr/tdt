@@ -48,9 +48,9 @@
     <hr class="booking_hr">
     <div class="payment_form">
         <div class="payment_information">信用卡付款資訊</div>
-        <div class="infor_con"><div class="payment_card">卡片號碼：</div><input type="text" class="payment_card_input" placeholder="**** **** **** ****"></div>
-        <div class="infor_con"><div class="payment_date">過期時間：</div><input type="text" class="payment_date_input" placeholder="MM / YY"></div>
-        <div class="infor_con"><div class="payment_verify">驗證密碼：</div><input type="text" class="payment_verify_input" placeholder="CVV"></div>
+        <div class="infor_con"><div class="payment_card">卡片號碼：</div>  <div class="payment_card_input tpfield" id="card-number" ></div><div class="cardResult"></div></div>
+        <div class="infor_con"><div class="payment_date">過期時間：</div>  <div class="payment_date_input tpfield" id="card-expiration-date" ></div><div class="expiryResult"></div></div>
+        <div class="infor_con"><div class="payment_verify">驗證密碼：</div><div class="payment_verify_input tpfield" id="card-ccv" ></div><div class="cvvResult"></div></div>
     </div>
     <hr class="booking_hr">
     <div class="confirm">
@@ -58,13 +58,14 @@
         <button class="confirm_btn"><div>確認訂購並付款</div></button>
     </div>
     <div class="no_booking" style="display:none">目前沒有任何待預訂的行程</div>
-    <footer class="footer">
+    <footer class="footerNobooking" style="display:none ">
         <div class="text"> COPYRIGHT © 2021 台北一日遊</div>
     </footer>
     {% endblock %}
     {% block js %}
-    <script src="/javascript/booking.js"></script>
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
     <script src="/javascript/common.js"></script>
+    <script src="/javascript/booking.js"></script>
     {% endblock %}
 </body>
 </html>
