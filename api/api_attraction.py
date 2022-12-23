@@ -1,5 +1,6 @@
 from flask import *
 from model.taipeidb import cnxpool
+from model.attraction import Attraction
  
 attraction = Blueprint("attraction", __name__, static_folder="static", static_url_path="/")
 
@@ -9,107 +10,80 @@ def push_data(viewpoint_data, viewpoint):
 	else:
 		data_length = len(viewpoint_data)
 	for i in range(data_length):
-		images = viewpoint_data[i][9]
+		images = viewpoint_data[i]["images"]
 		image = images.split(", ")
 		data = {
-				"id": viewpoint_data[i][0],
-				"name": viewpoint_data[i][1],
-				"category": viewpoint_data[i][2],
-				"description": viewpoint_data[i][3],
-				"address": viewpoint_data[i][4],
-				"transport": viewpoint_data[i][5],
-				"mrt": viewpoint_data[i][6],
-				"lat": viewpoint_data[i][7],
-				"lng": viewpoint_data[i][8],
-				"images": image
-			}
+			"id": viewpoint_data[i]["id"],
+			"name": viewpoint_data[i]["name"],
+			"category": viewpoint_data[i]["category"],
+			"description": viewpoint_data[i]["description"],
+			"address": viewpoint_data[i]["address"],
+			"transport": viewpoint_data[i]["transport"],
+			"mrt": viewpoint_data[i]["mrt"],
+			"lat": viewpoint_data[i]["lat"],
+			"lng": viewpoint_data[i]["lng"],
+			"images": image
+		}
 		viewpoint.append(data)
 
 @attraction.route("/api/attractions")
 def api_attractions():
-	try:
-		cnx = cnxpool.get_connection()
-		cursor = cnx.cursor()
-		page = request.args.get("page", 0)
-		number_of_page = 12
-		keyword = request.args.get("keyword", None)
-		viewpoint = []
+	page = request.args.get("page", 0)
+	number_of_page = 12
+	keyword = request.args.get("keyword", None)
+	viewpoint = []
+	result = Attraction.attractions(page, number_of_page, keyword)
+	# print(result)
+	if result:
+		push_data(result, viewpoint)
 
-		if keyword == None:
-			query = "select * from attraction limit %s, %s;"
-			cursor.execute(query, ((int(page) * number_of_page), number_of_page+1))
-			viewpoint_data = cursor.fetchall()
-			push_data(viewpoint_data, viewpoint)
-		else :
-			query = "select * from attraction where LOCATE(%s, name)>0 OR category = %s limit %s, %s;"
-			cursor.execute(query, (keyword, keyword, (int(page) * number_of_page), number_of_page+1))
-			viewpoint_data = cursor.fetchall()
-			push_data(viewpoint_data, viewpoint)
-		if len(viewpoint_data) <= 12:
+		if len(result) <= 12:
 			nextpage = None
 		else: 
 			nextpage = 1
-		alldata = {
+
+		data = {
 			"nextPage": nextpage,
 			"data" : viewpoint
 		}
-		res = make_response(alldata, 200)
+		res = make_response(data, 200)
 		return res
-	except:
+	else:
 		data={
 				"error": True,
 				"message": "server error"
 			}
 		res = make_response(data, 500)
 		return res
-	finally:
-		cursor.close()  
-		cnx.close()
-
-
+          
 @attraction.route("/api/attraction/<id>")
 def api_attraction_id(id):
-	try:
-		cnx = cnxpool.get_connection()
-		cursor = cnx.cursor()
-		query = "select * from attraction where id = %s;"
-		cursor.execute(query, (id,))
-		viewpoint_data = cursor.fetchone()
-		if viewpoint_data != None:
-			images = viewpoint_data[9]
-			image = images.split(", ")
-			data = {
-				"data": [
-					{
-						"id": viewpoint_data[0],
-						"name": viewpoint_data[1],
-						"category": viewpoint_data[2],
-						"description": viewpoint_data[3],
-						"address": viewpoint_data[4],
-						"transport": viewpoint_data[5],
-						"mrt": viewpoint_data[6],
-						"lat": viewpoint_data[7],
-						"lng": viewpoint_data[8], 
-						"images": image
-					}
-				]
-			}
-			res = make_response(data, 200)
-			return res
-		else:
-			data={
-				"error": True,
-				"message": "no such number"
-			}
-			res = make_response(data, 400)
-			return res
-	except:
+	result = Attraction.attractions_id(id)
+	if result :
+		images = result["images"]
+		image = images.split(", ")
+		data = {
+			"data": [
+				{
+					"id": result["id"],
+					"name": result["name"],
+					"category": result["category"],
+					"description": result["description"],
+					"address": result["address"],
+					"transport": result["transport"],
+					"mrt": result["mrt"],
+					"lat": result["lat"],
+					"lng": result["lng"], 
+					"images": image
+				}
+			]
+		}
+		res = make_response(data, 200)
+		return res
+	else:
 		data={
 			"error": True,
 			"message": "server error"
 		}
-		res = make_response(data, 500)
+		res = make_response(data, 200)
 		return res
-	finally:
-		cursor.close()  
-		cnx.close()

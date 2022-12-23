@@ -4,7 +4,6 @@ from model.user import User
 import time
 import jwt
 
-
 bcrypt = Bcrypt()
 
 user = Blueprint("user", __name__, static_folder="static", static_url_path="/")
@@ -36,7 +35,7 @@ def signin_():
 	password = front_signin["password"]
 	result = User.signin(account, password)
 	# print(result)
-	print("api",result)
+	# print("api",result)
 	if result == None:					
 		data = {
 			"error": True,
