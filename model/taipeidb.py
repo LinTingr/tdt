@@ -21,4 +21,5 @@ cnxpool = mysql.connector.pooling.MySQLConnectionPool(
     **dbconfig
 )
 
+
 category_query = "select category from attraction;"
