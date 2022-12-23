@@ -3,6 +3,10 @@ from api.api_attraction import attraction
 from api.api_booking import booking
 from api.api_category import category
 from api.api_user import user
+from api.api_order import orderdata
+
+
+
 
 app=Flask(__name__, static_folder="static", static_url_path="/")
 app.config["JSON_AS_ASCII"]=False
@@ -14,7 +18,8 @@ app.secret_key="any"
 app.register_blueprint(attraction)
 app.register_blueprint(category)
 app.register_blueprint(user)
-app.register_blueprint(booking)
+app.register_blueprint(booking) 
+app.register_blueprint(orderdata) 
 
 # Pages
 @app.route("/")
