@@ -1,9 +1,4 @@
-//////////////////////////////////////////////////////////////////
-// const errorClose = document.querySelector(".errorClose")
-// errorClose.addEventListener("click", ()=>{
-//     const errorBack = document.querySelector(".errorBack");
-//     errorBack.style.display = "none";
-// })
+
 //////////////////////////////////////////////////////////////////
 let url = '/api'+window.location.pathname
 let image 
@@ -11,6 +6,8 @@ let count = 0
 fetch(url).then(function(response){
     return response.json()
 }).then(function(data){
+    console.log(data)
+    console.log(data.data[0])
     const data_ = data.data[0]
     image = data.data[0].images
     for (let i = 0; i<data.data[0].images.length;i++){

@@ -159,3 +159,8 @@ signupBtn.addEventListener("click", ()=>{
 })
 
 ////////////////////////////////////////////////////////////////////////////////
+const errorClose = document.querySelector(".errorClose")
+errorClose.addEventListener("click", ()=>{
+    const errorBack = document.querySelector(".errorBack");
+    errorBack.style.display = "none";
+})
