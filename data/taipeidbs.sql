@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: taipeitravel
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -47,30 +47,66 @@ INSERT INTO `attraction` VALUES (1,'新北投溫泉區','養生溫泉','北投�
 UNLOCK TABLES;
 
 --
--- Table structure for table `order_booking`
+-- Table structure for table `booking`
 --
 
-DROP TABLE IF EXISTS `order_booking`;
+DROP TABLE IF EXISTS `booking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order_booking` (
+CREATE TABLE `booking` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userid` int NOT NULL,
   `attractionId` int NOT NULL,
   `date` varchar(127) NOT NULL,
   `time` varchar(127) NOT NULL,
   `price` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  KEY `userid` (`userid`),
+  CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `usertaipei` (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `order_booking`
+-- Dumping data for table `booking`
 --
 
-LOCK TABLES `order_booking` WRITE;
-/*!40000 ALTER TABLE `order_booking` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order_booking` ENABLE KEYS */;
+LOCK TABLES `booking` WRITE;
+/*!40000 ALTER TABLE `booking` DISABLE KEYS */;
+INSERT INTO `booking` VALUES (31,3,82,'2022-12-03','早上',2000);
+/*!40000 ALTER TABLE `booking` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userid` int NOT NULL,
+  `number` varchar(63) NOT NULL,
+  `attractionId` int NOT NULL,
+  `date` varchar(127) NOT NULL,
+  `time` varchar(127) NOT NULL,
+  `price` int NOT NULL,
+  `name` varchar(63) NOT NULL,
+  `email` varchar(63) NOT NULL,
+  `phone` varchar(63) NOT NULL,
+  `status` int DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,9,'20221223043980',1,'2022-12-24','下午',2500,'aaaa','aaaa@gmail.com','0912345645',0),(2,9,'20221223043981',4,'2022-12-24','下午',2500,'aaaa','aaaa@gmail.com','0945678912',0),(3,9,'20221223043982',8,'2022-12-30','下午',2500,'aaaa','aaaa@gmail.com','0945678978',0),(4,9,'20221223050583',4,'2022-12-24','下午',2500,'aaaa','aaaa@gmail.com','0912345678',0),(5,9,'20221223051684',2,'2022-12-24','早上',2000,'盧佩瑩','qwe665478@gmail.com','0912345678',1),(6,9,'20221223051684',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(7,9,'20221223131484',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(8,9,'20221223131584',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(9,9,'20221223131584',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(10,9,'20221223131584',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(11,9,'20221223131784',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(12,9,'20221223132084',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(13,9,'20221223132184',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(14,9,'20221223132284',2,'2022-12-24','早上',2000,'盧佩瑩','2312a123@gmail.com','0945678912',1),(15,9,'20221223132284',2,'2022-12-24','早上',2000,'fuck','2312a123@gmail.com','0945678912',1),(16,9,'20221223132384',2,'2022-12-24','早上',2000,'fuck','2312a123@gmail.com','0945678912',0),(17,9,'20221223132885',4,'2022-12-24','下午',2500,'盧小姐','aaadsdaa@gmail.com','0912456789',0);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -81,12 +117,12 @@ DROP TABLE IF EXISTS `usertaipei`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usertaipei` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(16) NOT NULL,
-  `useremail` varchar(50) NOT NULL,
-  `userpassword` varchar(127) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `userid` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(63) NOT NULL,
+  `useremail` varchar(63) NOT NULL,
+  `userpassword` varchar(255) NOT NULL,
+  PRIMARY KEY (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +131,7 @@ CREATE TABLE `usertaipei` (
 
 LOCK TABLES `usertaipei` WRITE;
 /*!40000 ALTER TABLE `usertaipei` DISABLE KEYS */;
-INSERT INTO `usertaipei` VALUES (1,'123','123','$2b$12$riuuWA4gyj60ylXjjk0yTOaXoj6slcFSqBdLiytwc0qDkM0r3d3l6'),(2,'peggy','peggy@gmail.com','$2b$12$ZbV.g3L/yXPx9om5XD4E..O.rzCagqgNyHbkzQ9/e3lvg6tnOETjy');
+INSERT INTO `usertaipei` VALUES (3,'Pei 寶貝','haha','$2b$12$ly0u6C.VlmCdwv1Kn62/x.mysr5zKoz2g4n9vcW3BG93TV4Y1Wgba'),(5,'ting','ting@gmail.com','$2b$12$0dznzXANY5mp8trsqCRSne/OcHFruGu11CH4ogSul5jCwseuipQVO'),(6,'123','123@qwe.com','$2b$12$VlwhZs1R.ya2U5/ypEE7BO1R8fz7UzP/MycxjOpvbEToMl9YEWwOi'),(7,'123','123@qwe.qwe','$2b$12$oFE5w.yGZu5cO0fu0CLcn.e1z0/rYyAHuIdYT/UGv08EqLVnxDoxe'),(8,'ting','asd@gmail.com','$2b$12$fgFwplO/fztzqkKFhAGQfez8x.3hwem7gAbv0JK5VRodLNI0OfWB.'),(9,'aaaa','aaaa@gmail.com','$2b$12$ttFRmjdc5gdVFYA3Y1CIxuadnI9nAQm8tOoAR49EsUbhJKZlutykK');
 /*!40000 ALTER TABLE `usertaipei` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -108,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-15  1:08:38
+-- Dump completed on 2022-12-23 13:59:11
