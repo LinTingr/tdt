@@ -1,0 +1,97 @@
+.memberHistoryFrame{
+    width: 1200px;
+    height: 800px;
+    border: 1px solid;
+    margin: 30px auto 30px;
+    display: flex;
+}
+.memberFrame{
+    width: 300px;
+    height: 800px;
+    /* border: 1px solid; */
+}
+.imageFrame{
+    width: 150px;
+    height: 150px;
+    /* border: 1px solid; */
+    margin: 30px auto;
+}
+.headstrick{
+    border-radius: 50%;
+}
+.memberName{
+    font-size: 22px;
+    text-align: center;
+}
+.historyFrame{
+    width: 900px;
+    height: 800px;
+    border: 1px solid;
+}
+.historyFrameAll{
+    width: 800px;
+    height: 720px;
+    /* border: 1px solid; */
+    margin: 30px auto;
+}
+.historymenu{
+    width: 800px;
+    height: 70px;
+    border-bottom: 1px solid;
+    display: flex;
+}
+.historyitem{
+    width: 140px;
+    height: 70px;
+    /* border: 1px solid; */
+    font-size: 22px;
+    text-align: center;
+    line-height: 70px;
+    cursor: pointer;
+}
+.historyitem:hover{
+    background-color: #e5e5e5;
+}
+.borderbottom{
+    box-sizing: border-box;
+    border-bottom: 3px solid #3397cf;
+}
+.historyOrder{
+    width: 662px;
+    height: 620px;
+    margin: 15px auto;
+    overflow: scroll;
+}
+.historyOrderFrame{
+    width: 660px;
+    height: 190px;
+    border: 1px solid;
+    margin: 15px auto;
+    display: flex;
+}
+.orderImage{
+    width: 190px;
+    height: 190px;
+    border: 1px solid;
+    display: flex;
+}
+img{
+    width: 100%;
+    object-fit: cover;
+}
+.orderFrame{
+    width: 450px;
+    height: 170px;
+    /* border: 1px solid; */
+    margin: auto;
+}
+.orderItem{
+    width: 100%;
+    margin: 15px 0;
+    font-size: 16px;
+    display: flex;
+}
+.number, .date, .price, .time{
+    margin: auto 5px;
+
+}
