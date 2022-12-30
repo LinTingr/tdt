@@ -4,6 +4,7 @@ from api.api_booking import booking
 from api.api_category import category
 from api.api_user import user
 from api.api_order import orderdata
+from api.api_member import member
 
 
 
@@ -20,6 +21,7 @@ app.register_blueprint(category)
 app.register_blueprint(user)
 app.register_blueprint(booking) 
 app.register_blueprint(orderdata) 
+app.register_blueprint(member) 
 
 # Pages
 @app.route("/")
@@ -34,5 +36,8 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
 	return render_template("thankyou.html")
+@app.route("/member")
+def member():
+	return render_template("member.html")
 
 app.run(host="0.0.0.0", port=3000)
