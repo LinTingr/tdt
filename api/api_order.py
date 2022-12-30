@@ -37,10 +37,25 @@ def order():
             name = order['order']['contact']["name"]
             email = order['order']['contact']["email"]
             phone_number = order['order']['contact']['phone']
-            if re.fullmatch(email_regula, email) == None or re.fullmatch(phone_regula, phone_number) == None:
+            print(name)
+            if name == "" or email == "" or phone_number == "" :
                 data = {
                     "error": True,
-                    "message": "Email或手機號碼格式輸入錯誤"
+                    "message": "請輸入完整資訊"
+                }
+                response = make_response(data, 400)
+                return response 
+            if not re.fullmatch(email_regula, email):
+                data = {
+                    "error": True,
+                    "message": "Email格式輸入錯誤"
+                }
+                response = make_response(data, 400)
+                return response 
+            elif not re.fullmatch(phone_regula, phone_number):
+                data = {
+                    "error": True,
+                    "message": "手機號碼格式輸入錯誤"
                 }
                 response = make_response(data, 400)
                 return response 

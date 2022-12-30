@@ -14,19 +14,35 @@ def signup():
 	name = front_signup["name"]
 	account = front_signup["account"]
 	password = front_signup["password"]
-	hashed_password =bcrypt.generate_password_hash(password=password)
-	result = User.signup(name, account, hashed_password)
-	if result :
-		data = { "ok": True }
-		response = make_response(jsonify(data),200)
+	if name != "" or account != "" or password != "":
+		isdata = User.singin_repeat(account)
+		if isdata :
+			data = {
+				"error": True,
+				"message": "Email 已被註冊"
+			}
+			response = make_response(jsonify(data),200)
+		else:
+			hashed_password =bcrypt.generate_password_hash(password=password)
+			result = User.signup(name, account, hashed_password)
+			if result :
+				data = { "ok": True }
+				response = make_response(jsonify(data),200)
+			else:
+				data = {
+					"error": True,
+					"message": "伺服器錯誤"
+				}
+				response = make_response(jsonify(data),500)
 		return response
 	else:
 		data = {
 			"error": True,
-			"message": "伺服器錯誤"
+			"message": "欄位不能為空"
 		}
-		response = make_response(jsonify(data),500)
+		response = make_response(jsonify(data),400)
 		return response
+		
 
 @user.route("/api/user/auth", methods=["PUT"])
 def signin_():

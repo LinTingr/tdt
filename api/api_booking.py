@@ -20,8 +20,9 @@ def schedule():
 			if schedule["date"] :
 				repeat = Booking.search_user(userid)
 				if repeat :
-					Booking.delete_booking(userdata)
+					Booking.delete_booking(userid)
 				Booking.insert_booking(userdata, schedule)
+
 				data = {"ok":True}
 				response = make_response(jsonify(data),200)
 			else:
