@@ -46,3 +46,19 @@ class User:
         finally:  
             cursor.close()
             cnx.close()
+
+    def singin_repeat(account):
+        try:
+            cnx = cnxpool.get_connection()
+            cursor = cnx.cursor(dictionary=True)
+            query = "select * from usertaipei where useremail = %s ;"
+            cursor.execute(query, (account, ))
+            isdata = cursor.fetchone()
+            if isdata:
+                return isdata
+            return None
+        except:
+            return False
+        finally:  
+            cursor.close()
+            cnx.close()

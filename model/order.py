@@ -32,11 +32,28 @@ class Order:
             attraction.id, attraction.name as attractionName, attraction.address, attraction.images
             from orders 
             INNER JOIN attraction
-            ON  orders.attractionId = attraction.id
+            ON  orders.attractionId = attraction.id 
             where orders.number = %s """
-            print(number)
+            # print(number)
             cursor.execute(query, (number,))
             data = cursor.fetchone()
+            return data
+        finally:
+            cursor.close()
+            cnx.close()
+
+    def get(userid):
+        try :
+            cnx = cnxpool.get_connection()
+            cursor = cnx.cursor(dictionary=True)
+            query = '''select orders.number, orders.price, orders.date, orders.time, orders.status,
+            attraction.id, attraction.name as attractionName, attraction.images
+            from orders 
+            INNER JOIN attraction
+            ON  orders.attractionId = attraction.id 
+            where userid = %s order by orders.id desc '''
+            cursor.execute(query, (userid,))
+            data = cursor.fetchall()
             return data
         finally:
             cursor.close()
