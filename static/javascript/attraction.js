@@ -1,4 +1,11 @@
-
+const todaystart = document.querySelector("#start")
+let today = new Date()
+let year = today.getFullYear()
+let date = today.getDate()+1
+let month = today.getMonth()+1
+let todayNow = year+"-"+month+"-"+date
+console.log(todayNow)
+todaystart.setAttribute("min", todayNow)
 //////////////////////////////////////////////////////////////////
 let url = '/api'+window.location.pathname
 let image 

@@ -5,7 +5,6 @@ const orderphone = document.querySelector(".phone")
 const price = document.querySelector(".price")
 const orderstatus = document.querySelector(".status")
 let url = window.location.search
-console.log(url)
 document.querySelector(".footer").style.display = "none"
 fetch("/api/orders"+url).then(function(response){
     return response.json()

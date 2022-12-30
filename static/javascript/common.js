@@ -92,8 +92,9 @@ fetch("/api/user/auth",{
 }).then(function(response){
     response.json().then(function(data){
         if (data.data){
-            let signup = document.querySelector(".signinup")
-            signup.textContent = "登出系統"
+            let signinup = document.querySelector(".signinup")
+            signinup.innerHTML = '<img src="pic/member_icon.png" class="icon"> '
+            signinup.innerHTML += "登出系統"
         }
     })
 })
@@ -108,7 +109,7 @@ signupBtn.addEventListener("click", ()=>{
     let account = document.querySelector(".accountSignup").value;
     let password = document.querySelector(".passwordSignup").value;
     let signupdata = null
-    console.log(account.search(emailRule))
+    // console.log(account.search(emailRule))
     if(name == "" || account == "" || password == ""){
         newdiv.setAttribute("class", "mess")
         newdiv.setAttribute("style", "color:red")

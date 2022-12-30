@@ -183,10 +183,16 @@ confirm_btn.addEventListener("click",function(event){
     event.preventDefault()
     const tappayStatus = TPDirect.card.getTappayFieldsStatus();
     if (tappayStatus.canGetPrime === false) {
-        console.log('can not get prime')
+        const errorBack = document.querySelector(".errorBack");
+        errorBack.style.display = "";
+        const errorMessageText = document.querySelector(".errorMessageText");
+        errorMessageText.innerHTML = "請輸入信用卡資訊";
         return
     }
     TPDirect.card.getPrime((result) => {
+        if (result.status!=0){
+            console.log(result.msg)
+        }
         console.log('get prime 成功，prime: ' + result.card.prime)
         prime = result.card.prime
         let data = {
@@ -219,6 +225,12 @@ confirm_btn.addEventListener("click",function(event){
         }).then(function(response){
             return response.json()
         }).then(function(data){
+            if(data.error){
+                const errorBack = document.querySelector(".errorBack");
+                errorBack.style.display = "";
+                const errorMessageText = document.querySelector(".errorMessageText");
+                errorMessageText.innerHTML = data.message;
+            }
             if(data.data){
                 let number = data.data.number 
                 window.location.href = "/thankyou?number="+number

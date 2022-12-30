@@ -34,6 +34,7 @@ body, ul, ol{
     height: 100px;
     margin: auto;
 }
+
 .errorMessageText{
     width: 310px;
     height: 100px;
@@ -100,7 +101,7 @@ body, ul, ol{
     align-items: center;
 }
 .signlist{
-    width: 175px;
+    width: 200px;
     height: 34px;
     display: flex;
     justify-content: flex-end;
@@ -109,8 +110,8 @@ body, ul, ol{
     flex: none;
 }
 .schedule{
-    width:64px;
-    height:16px;
+    width:90px;
+    height:22px;
     font-size: 16px;
     display: flex;
     align-items: center;
@@ -121,8 +122,8 @@ body, ul, ol{
     color:#000
 }
 .signinup{
-    width:71px;
-    height:16px;
+    width:90px;
+    height:22px;
     font-size: 16px;
     margin-left: 20px;
     cursor: pointer;
@@ -260,6 +261,11 @@ body, ul, ol{
     margin: auto;
     padding: 45px;
     color: #fff;
+}
+.icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }
 @media(max-width:1200px){
     .titleAll{
