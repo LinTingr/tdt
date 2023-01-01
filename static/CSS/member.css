@@ -1,3 +1,7 @@
+h5{
+    margin: 0;
+    padding: 0;
+}
 .memberHistoryFrame{
     width: 1200px;
     height: 800px;
@@ -16,7 +20,7 @@
     /* border: 1px solid; */
     margin: 30px auto;
 }
-.headstrick{
+.avatar{
     border-radius: 50%;
 }
 .memberName{
@@ -57,22 +61,30 @@
     border-bottom: 3px solid #3397cf;
 }
 .historyOrder{
-    width: 662px;
-    height: 620px;
+    width: 745px;
+    height: 660px;
     margin: 15px auto;
     overflow: scroll;
+    overflow-x: hidden;
 }
+.historyOrder::-webkit-scrollbar{
+    width: 10px;
+}
+.historyOrder::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border: 1px solid slategrey;
+  }
 .historyOrderFrame{
-    width: 660px;
+    width: 730px;
     height: 190px;
     border: 1px solid;
-    margin: 15px auto;
+    margin: 0px auto 15px;
     display: flex;
 }
 .orderImage{
     width: 190px;
     height: 190px;
-    border: 1px solid;
+    /* border: 1px solid; */
     display: flex;
 }
 img{
@@ -81,17 +93,31 @@ img{
 }
 .orderFrame{
     width: 450px;
-    height: 170px;
+    height: 175px;
     /* border: 1px solid; */
     margin: auto;
+    display: flex;
+}
+.orderNumber{
+    width: 100%;
+    height: auto;
+    white-space:nowrap;
+    overflow: hidden;
+}
+.orderName{
+    width: 70%;
+    height: auto;
+    margin-left: 20px;
+    white-space:nowrap;
+    overflow: hidden;
 }
 .orderItem{
     width: 100%;
-    margin: 15px 0;
+    margin: 10px 5px 00;
     font-size: 16px;
     display: flex;
 }
-.number, .date, .price, .time{
+.number, .date, .price, .time, .attractionName{
     margin: auto 5px;
 
 }
