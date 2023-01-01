@@ -46,7 +46,7 @@ class Order:
         try :
             cnx = cnxpool.get_connection()
             cursor = cnx.cursor(dictionary=True)
-            query = '''select orders.number, orders.price, orders.date, orders.time, orders.status,
+            query = '''select orders.name, orders.email, orders.phone, orders.number, orders.price, orders.date, orders.time, orders.status,
             attraction.id, attraction.name as attractionName, attraction.images
             from orders 
             INNER JOIN attraction
