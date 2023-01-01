@@ -93,7 +93,7 @@ fetch("/api/user/auth",{
     response.json().then(function(data){
         if (data.data){
             let signinup = document.querySelector(".signinup")
-            signinup.innerHTML = '<img src="pic/member_icon.png" class="icon"> '
+            signinup.innerHTML = '<img src="/pic/member_icon.png" class="icon"> '
             signinup.innerHTML += "登出系統"
         }
     })
