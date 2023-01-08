@@ -5,15 +5,19 @@ signinup.addEventListener("click", function(){
     if (signinup.textContent == "登入/註冊"){
         signin.style.display = "";
     }
-    else{
+})
+////////////////////////////////////////////////////////////////////////////////
+let signout = document.querySelector(".signout");
+signout.addEventListener("click", ()=>{
+    if (document.cookie){
         fetch("/api/user/auth",{
-                method : "DELETE"
-            }).then(function(response){
-                response.json().then(function(data){
-                    let signup = document.querySelector(".signinup");
-                    signup.textContent = "登入/註冊";
-                })
+            method : "DELETE"
+        }).then(function(response){
+            response.json().then(function(data){
+                let signinup = document.querySelector(".signinup");
+                signinup.className = "signinup";
             })
+        })
         location.reload()
     }
 })
@@ -93,10 +97,26 @@ fetch("/api/user/auth",{
     response.json().then(function(data){
         if (data.data){
             let signinup = document.querySelector(".signinup")
-            signinup.innerHTML = '<img src="/pic/member_icon.png" class="icon"> '
-            signinup.innerHTML += "登出系統"
+            signinup.style.display = "none"
+            const MemberSystem = document.querySelector(".MemberSystem")
+            MemberSystem.className = "MemberSystem"
+        }else{
+            const MemberSystem = document.querySelector(".MemberSystem")
+            MemberSystem.style.display="none"
         }
     })
+})
+////////////////////////////////////////////////////////////////////////////////
+const memberSystem = document.querySelector(".MemberSystem")
+memberSystem.addEventListener("click", ()=>{
+    const memberSystem = document.querySelector(".memberSystem")
+    console.log(memberSystem.style.display)
+    if (memberSystem.style.display == "none"){
+        memberSystem.style.display = ""
+    }else{
+        memberSystem.style.display = "none"
+    }
+    
 })
 ////////////////////////////////////////////////////////////////////////////////
 const emailRule = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
